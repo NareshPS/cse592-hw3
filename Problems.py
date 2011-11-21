@@ -76,6 +76,7 @@ class Prob2:
     attribNames     = ["STABILITY", "ERROR", "SIGN", "WIND", "MAGNITUDE", "VISIBILITY"]
     attribValues    = [["stab", "xstab"],["XL", "LX", "MM", "SS"],["pp", "nn"],["head", "tail"],["Low", "Medium", "Strong", "OutOfRange"],["yes", "no"]]
     ratioCalc       = False
+    conclusion      = '\nFor the first tree, the split is chosen based on the informtion gain from the split. All the attributes are considered equally irrespective of multiple values they can take. For the second tree, the split is considered based on gain ratio. With gain ratio, we favor attributes with lesser values over those with large number of values. This usually gives a simpler tree. Also, the attributes with large number of values might not even have sufficient samples for learning. This would cause overfitting or give us a less general model. In our experiments, we notice that with gain ratio, STABILITY attribute is promoted over ERROR. This is because STABILITY is a two valued attribute as opposed to ERROR which can take four values. Thus, the second tree is more general than the first.'
 
     def __init__(self):
         pass
@@ -89,7 +90,6 @@ class Prob2:
 
     def chooseBestSplit(self, data, attribs):
         gain    = [(self.splitAndCompute(data, i),i) for i in attribs]
-        #print gain
         maxGain = max(gain) 
         splits  = []
         attrib  = maxGain[1]
@@ -153,13 +153,13 @@ class Prob2:
     def recurseSelection(self, data, attribs, default, tabs):
         counts  = self.countSamples(data)
         if len(data)==0:
-            self.reportText = self.reportText + tabs + 'Prediction: ' + default
+            self.reportText = self.reportText + tabs + 'Output: [default]' + default
             return
         elif counts[0]==0:
-            self.reportText = self.reportText + tabs + 'Prediction: ' + self.samplesValues[1]
+            self.reportText = self.reportText + tabs + 'Output: ' + self.samplesValues[1]
             return
         elif counts[1]==0:
-            self.reportText = self.reportText + tabs + 'Prediction: ' + self.samplesValues[0]
+            self.reportText = self.reportText + tabs + 'Output: ' + self.samplesValues[0]
             return
         else:
             splits,attrib   = self.chooseBestSplit(data, attribs)
@@ -178,10 +178,10 @@ class Prob2:
         self.reportText = self.reportText + '\n\end{verbatimtab}'
         self.ratioCalc  = True
         print '''\t Classifying based on Information Gain Ratio'''
-        self.reportText = self.reportText + '\n\subsection{Decision Tree for Information Gain}\n\\begin{verbatimtab}[8]'
         self.reportText = self.reportText + '\n\subsection{Decision Tree for Information Gain Ratio}\n\\begin{verbatimtab}[8]'
         self.recurseSelection(self.shuttle_data, range(len(self.attributes)), self.samplesValues[0], '\n  ')
         self.reportText = self.reportText + '\n\end{verbatimtab}'
+        self.reportText = self.reportText + self.conclusion
 
     def getReportText(self):
         return self.reportText

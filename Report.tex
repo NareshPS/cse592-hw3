@@ -4,6 +4,7 @@
 \usepackage{epsfig}
 \usepackage{subfigure}
 \usepackage{moreverb}
+\usepackage[margin=1in]{geometry}
 
 % type user-defined commands here
 
@@ -62,80 +63,79 @@
 \begin{verbatimtab}[8]
   VISIBILITY=yes
     ERROR=XL
-      Prediction: noauto
+      Output: noauto
     ERROR=LX
-      Prediction: noauto
+      Output: noauto
     ERROR=MM
       STABILITY=stab
         SIGN=pp
           MAGNITUDE=Low
-            Prediction: auto
+            Output: auto
           MAGNITUDE=Medium
-            Prediction: auto
+            Output: auto
           MAGNITUDE=Strong
             WIND=head
-              Prediction: noauto
+              Output: noauto
             WIND=tail
-              Prediction: auto
+              Output: auto
           MAGNITUDE=OutOfRange
-            Prediction: noauto
+            Output: noauto
         SIGN=nn
-          Prediction: noauto
+          Output: noauto
       STABILITY=xstab
-        Prediction: noauto
+        Output: noauto
     ERROR=SS
       STABILITY=stab
         MAGNITUDE=Low
-          Prediction: auto
+          Output: auto
         MAGNITUDE=Medium
-          Prediction: auto
+          Output: auto
         MAGNITUDE=Strong
-          Prediction: auto
+          Output: auto
         MAGNITUDE=OutOfRange
-          Prediction: noauto
+          Output: noauto
       STABILITY=xstab
-        Prediction: noauto
+        Output: noauto
   VISIBILITY=no
-    Prediction: auto
+    Output: auto
 \end{verbatimtab}
-\subsection{Decision Tree for Information Gain}
-\begin{verbatimtab}[8]
 \subsection{Decision Tree for Information Gain Ratio}
 \begin{verbatimtab}[8]
   VISIBILITY=yes
     STABILITY=stab
       ERROR=XL
-        Prediction: noauto
+        Output: noauto
       ERROR=LX
-        Prediction: noauto
+        Output: noauto
       ERROR=MM
         SIGN=pp
           MAGNITUDE=Low
-            Prediction: auto
+            Output: auto
           MAGNITUDE=Medium
-            Prediction: auto
+            Output: auto
           MAGNITUDE=Strong
             WIND=head
-              Prediction: noauto
+              Output: noauto
             WIND=tail
-              Prediction: auto
+              Output: auto
           MAGNITUDE=OutOfRange
-            Prediction: noauto
+            Output: noauto
         SIGN=nn
-          Prediction: noauto
+          Output: noauto
       ERROR=SS
         MAGNITUDE=Low
-          Prediction: auto
+          Output: auto
         MAGNITUDE=Medium
-          Prediction: auto
+          Output: auto
         MAGNITUDE=Strong
-          Prediction: auto
+          Output: auto
         MAGNITUDE=OutOfRange
-          Prediction: noauto
+          Output: noauto
     STABILITY=xstab
-      Prediction: noauto
+      Output: noauto
   VISIBILITY=no
-    Prediction: auto
+    Output: auto
 \end{verbatimtab}
+For the first tree, the split is chosen based on the informtion gain from the split. All the attributes are considered equally irrespective of multiple values they can take. For the second tree, the split is considered based on gain ratio. With gain ratio, we favor attributes with lesser values over those with large number of values. This usually gives a simpler tree. Also, the attributes with large number of values might not even have sufficient samples for learning. This would cause overfitting or give us a less general model. In our experiments, we notice that with gain ratio, STABILITY attribute is promoted over ERROR. This is because STABILITY is a two valued attribute as opposed to ERROR which can take four values. Thus, the second tree is more general than the first.
 
 \end{document}
