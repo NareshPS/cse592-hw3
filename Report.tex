@@ -3,6 +3,7 @@
 \usepackage{float}
 \usepackage{epsfig}
 \usepackage{subfigure}
+\usepackage{moreverb}
 
 % type user-defined commands here
 
@@ -19,7 +20,7 @@
  \begin{figure}[H]
     \centering
     \mbox{
-        \subfigure[]{\includegraphics[width=0.25\textwidth]{0.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{0_686.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{0_1434.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{0_1622.png}}}\end{figure}
+        \subfigure[]{\includegraphics[]{0.png}}\quad\subfigure[]{\includegraphics[]{0_686.png}}\quad\subfigure[]{\includegraphics[]{0_1434.png}}\quad\subfigure[]{\includegraphics[]{0_1622.png}}}\end{figure}
  \begin{figure}[H]
     \centering
     \mbox{
@@ -57,5 +58,82 @@
     \mbox{
         \subfigure[]{\includegraphics[width=0.25\textwidth]{9.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{9_825.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{9_1231.png}}\quad\subfigure[]{\includegraphics[width=0.25\textwidth]{9_1387.png}}}\end{figure}
 \section{Problem 2}
+\subsection{Decision Tree for Information Gain}
+\begin{verbatimtab}[8]
+  VISIBILITY=yes
+    ERROR=XL
+      Prediction: noauto
+    ERROR=LX
+      Prediction: noauto
+    ERROR=MM
+      STABILITY=stab
+        SIGN=pp
+          MAGNITUDE=Low
+            Prediction: auto
+          MAGNITUDE=Medium
+            Prediction: auto
+          MAGNITUDE=Strong
+            WIND=head
+              Prediction: noauto
+            WIND=tail
+              Prediction: auto
+          MAGNITUDE=OutOfRange
+            Prediction: noauto
+        SIGN=nn
+          Prediction: noauto
+      STABILITY=xstab
+        Prediction: noauto
+    ERROR=SS
+      STABILITY=stab
+        MAGNITUDE=Low
+          Prediction: auto
+        MAGNITUDE=Medium
+          Prediction: auto
+        MAGNITUDE=Strong
+          Prediction: auto
+        MAGNITUDE=OutOfRange
+          Prediction: noauto
+      STABILITY=xstab
+        Prediction: noauto
+  VISIBILITY=no
+    Prediction: auto
+\end{verbatimtab}
+\subsection{Decision Tree for Information Gain Ratio}
+\begin{verbatimtab}[8]
+  VISIBILITY=yes
+    STABILITY=stab
+      ERROR=XL
+        Prediction: noauto
+      ERROR=LX
+        Prediction: noauto
+      ERROR=MM
+        SIGN=pp
+          MAGNITUDE=Low
+            Prediction: auto
+          MAGNITUDE=Medium
+            Prediction: auto
+          MAGNITUDE=Strong
+            WIND=head
+              Prediction: noauto
+            WIND=tail
+              Prediction: auto
+          MAGNITUDE=OutOfRange
+            Prediction: noauto
+        SIGN=nn
+          Prediction: noauto
+      ERROR=SS
+        MAGNITUDE=Low
+          Prediction: auto
+        MAGNITUDE=Medium
+          Prediction: auto
+        MAGNITUDE=Strong
+          Prediction: auto
+        MAGNITUDE=OutOfRange
+          Prediction: noauto
+    STABILITY=xstab
+      Prediction: noauto
+  VISIBILITY=no
+    Prediction: auto
+\end{verbatimtab}
 
 \end{document}
