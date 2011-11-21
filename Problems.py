@@ -15,10 +15,7 @@ class Prob1:
     trial           = 'optdigits_trial.dat'
     trial_trans     = 'optdigits_trial_trans.dat'
     imgExtn         = '.png'
-    reportText      = '\n\section{Problem 1}'
-
-    def __init__(self):
-        pass
+    reportText      = '\n\section{Problem 1. kNN(3)}'
 
     def readDataFile(self, fileName):
         fp  = open(fileName, 'r')
@@ -59,6 +56,7 @@ class Prob1:
         self.reportText = self.reportText + reportWriter.reportWriter.addFigures(imageList)
 
     def runKNN(self):
+        print '''Running K Nearest Neighbor'''
         i   = 0
         for top3 in self.find3Neighbors(self.train_trans_data, self.trial_trans_data):
             self.plotGroup(i, top3)
@@ -173,10 +171,14 @@ class Prob2:
                 col = col + 1
 
     def runDecisionTree(self):
+        print '''Running Decision Tree'''
+        print '''\t Classifying based on Information Gain'''
         self.reportText = self.reportText + '\n\subsection{Decision Tree for Information Gain}\n\\begin{verbatimtab}[8]'
         self.recurseSelection(self.shuttle_data, range(len(self.attributes)), self.samplesValues[0], '\n  ')
         self.reportText = self.reportText + '\n\end{verbatimtab}'
         self.ratioCalc  = True
+        print '''\t Classifying based on Information Gain Ratio'''
+        self.reportText = self.reportText + '\n\subsection{Decision Tree for Information Gain}\n\\begin{verbatimtab}[8]'
         self.reportText = self.reportText + '\n\subsection{Decision Tree for Information Gain Ratio}\n\\begin{verbatimtab}[8]'
         self.recurseSelection(self.shuttle_data, range(len(self.attributes)), self.samplesValues[0], '\n  ')
         self.reportText = self.reportText + '\n\end{verbatimtab}'
@@ -199,3 +201,4 @@ if __name__ == '__main__':
     r.appendToReport(rt1)
     r.appendToReport(rt2)
     r.writeReport()
+    r.generatePdf()
